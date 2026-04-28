@@ -185,6 +185,19 @@ After user confirmation, create the agreed items in this order:
    - `## Final Decision` → confirmed stack, rejected alternatives, open questions that remain
    - `## Open Questions` → anything still unresolved after this run
 
+4. After all artifacts are created, append suggested actions. Include one `/do-it #ID` action per created full story (not epics), plus `/do-it` to see the full backlog menu. Order: discovery-phase stories first, then by phase. Example for 3 created stories:
+
+```
+<suggested-actions>
+<action>/do-it #0001</action>
+<action>/do-it #0002</action>
+<action>/do-it #0003</action>
+<action>/do-it</action>
+</suggested-actions>
+```
+
+Use the actual IDs assigned during this run. If only epics were created (no full stories), just suggest `/do-it`.
+
 ---
 
 ## Discovery-specific stories

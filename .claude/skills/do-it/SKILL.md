@@ -38,8 +38,8 @@ Read all five files:
 | `ready` | Check dependencies (see Dependency Check below) → Read `interview.md` + `tech.spec.md` → decompose tasks per `conventions.md` (specific library/approach per task; new decisions → `tech.spec.md ## Architectural Decisions`) → confirm task list with user → write test plan in `tests.md` → `tests_defined`. |
 | `tests_defined` | Transition to `in_progress` (update `spec.md`, `progress.md`, `stories.md`) → implement tasks in order, skip `test` type → after last impl task run tests (Step 5). |
 | `in_progress` | Read `tasks.md`. If there are pending implementation tasks (`infra`/`data`/`backend`/`api`/`design`/`frontend`), continue from the first one. If only `test` tasks remain → run tests (Step 5). |
-| `tests_passing` | Summarize completed work. Ask user to review. Transition to `done` when approved. |
-| `done` | Report story complete, show summary. |
+| `tests_passing` | Summarize completed work. Ask user to review. Transition to `done` when approved. After transitioning, append suggested actions (see "Suggested Actions after Story Work" below). |
+| `done` | Report story complete, show summary. Then append suggested actions (see "Suggested Actions after Story Work" below). |
 
 ### UI Check (during `review`)
 
@@ -86,6 +86,21 @@ Parse the output:
 5. Mark test tasks `✅ done` in `tasks.md`.
 6. If all `✅` → transition to `tests_passing`.
 7. If any `❌` → stay in `in_progress`. Show the Failure Log. Attempt to fix failing tests by correcting the implementation (not the tests). After each fix, re-run the suite. If after two fix attempts tests still fail, stop and ask the user for guidance — describe exactly what's failing and why the fix isn't straightforward.
+
+### Suggested Actions after Story Work
+
+After completing a story (`done`) or reaching `tests_passing`, read `docs/stories.md` and find the next most actionable story (prefer `in_progress` → `tests_defined` → `ready` → `review` → `draft`). Then append:
+
+```
+<suggested-actions>
+<action>/discovery</action>
+<action>/do-it #XXXX</action>
+</suggested-actions>
+```
+
+Replace `#XXXX` with that story's ID. If no other stories exist, only suggest `/discovery`.
+
+---
 
 ### Step 6 — After every significant step: sync state
 
@@ -149,6 +164,17 @@ Rules:
 - If `In progress` has exactly one story, you may continue it directly (ask "Continue #ID — {Name}? [y/n]" to confirm).
 - If everything is empty (no in_progress, no ready, no epics), say: "The backlog is empty. Run `discovery` to find the next wave of work." Then stop.
 - Epics section lists only `epic` rows (rows with `—` in all checkbox columns).
+
+After displaying the menu, always append suggested actions. Include `/discovery` always, and one `/do-it #ID` action for the most actionable story (prefer `in_progress` → `tests_defined` → `ready` → `review` → `draft` order). Format:
+
+```
+<suggested-actions>
+<action>/discovery</action>
+<action>/do-it #XXXX</action>
+</suggested-actions>
+```
+
+Replace `#XXXX` with the actual story ID. If the backlog is empty, only suggest `/discovery`.
 
 When the user picks a story → Mode 1.
 When the user picks "epic #ID" → elaborate the epic (see below).
