@@ -164,7 +164,7 @@ Wait for the user to confirm, adjust, or cancel. If they want to adjust — modi
 
 After user confirmation, create the agreed items in this order:
 
-1. **Full stories** — invoke `create-story` for each one.
+1. **Full stories** — before invoking any skill, write out the complete numbered list of stories to create (e.g. "Creating 1/10: Define tech stack … 2/10: Domain model …"). Then invoke `create-story` for each one **sequentially**, printing the counter ("Creating 2/10…") before each call. Do not stop or summarize until every story in the confirmed list has been created.
    Use the `discovery` phase for analysis stories, or the appropriate dev phase.
 
 2. **Epics** — add a single row to the relevant phase table in `docs/stories.md`.

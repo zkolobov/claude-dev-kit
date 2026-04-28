@@ -116,7 +116,7 @@ Task progress lives in `tasks.md`. Keep progress.md lean.
 # Progress: {Story Name}
 
 ## Meta
-**Status:** `draft`
+**Status:** `{actual status — draft or ready}`
 **Last updated:** {today's date}
 **Completed at:** —
 
@@ -187,6 +187,8 @@ Story created. Awaiting interview review and question resolution.
 
 **New story mode:** Add a row to the phase table. If the phase section doesn't exist yet, create it with a header and table.
 
+> **Do NOT re-read `stories.md`.** You already read it in step 1 — use that content to construct the Edit call directly.
+
 For backend / frontend stories:
 ```
 | {ID} | {Story Name} | {1-2 sentence description} | ☐ | ☐ | ☐ | ☐ | ☐ | ☐ |
@@ -205,6 +207,6 @@ Column order: `ID | Story | Description | Spec | Interview | Tests Defined | In 
 ✅ Story {ID} created: {Name}
    Phase: {phase}
    Folder: docs/stories/{id}-{slug}/
-   Status: draft
+   Status: {actual status — draft or ready}
    Open questions: {N}
 ```

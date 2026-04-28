@@ -14,7 +14,7 @@ Epics are elaborated into full stories when you're ready to work on them.
 |---|---|---|---|---|---|---|
 | `epic` | — | — | — | — | — | — |
 | `draft` | ☐ | ☐ | ☐ | ☐ | ☐ | ☐ |
-| `review` | ☐ | ☐ | ☐ | ☐ | ☐ | ☐ | ← same as draft
+| `review` | ☐ | ☐ | ☐ | ☐ | ☐ | ☐ |
 | `ready` | ☑ | ☑ | ☐ | ☐ | ☐ | ☐ |
 | `tests_defined` | ☑ | ☑ | ☑ | ☐ | ☐ | ☐ |
 | `in_progress` | ☑ | ☑ | ☑ | ☑ | ☐ | ☐ |

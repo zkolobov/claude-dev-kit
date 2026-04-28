@@ -111,6 +111,7 @@ Make the edits. The scope depends on what changed:
 - `spec.md` — update the `# Story {ID}: {Name}` heading
 - `progress.md` — update the `# Progress: {Name}` heading to match
 - `interview.md` — update the `# Interview: {Name}` heading to match
+- `tasks.md` — update the `# Tasks: {Name}` heading to match
 - `tests.md` — update the `# Tests: {Name}` heading to match
 - `docs/stories.md` — update the story name in the row
 - Do **not** rename the folder — the slug is fixed at creation time to avoid breaking references
