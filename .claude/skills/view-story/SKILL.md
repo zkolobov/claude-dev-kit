@@ -75,6 +75,17 @@ Phase: {phase}   Status: {status}   Updated: {date}
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
 
+After rendering the summary, always append suggested actions:
+
+```
+<suggested-actions>
+<action>/do-it #{ID}</action>
+<action>/update-story #{ID}</action>
+</suggested-actions>
+```
+
+Use the actual story ID. If the story is `done`, omit `/do-it` and only suggest `/update-story #{ID}`.
+
 **Status icons** (from `.claude/conventions.md`):
 - 📝 draft  |  💬 review  |  🟡 ready / tests_defined  |  🔄 in_progress  |  🟢 tests_passing  |  ☑️ done  |  ⛔ blocked
 
