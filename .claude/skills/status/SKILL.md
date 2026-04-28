@@ -110,7 +110,7 @@ Otherwise, read all five story files (spec, interview, tasks, tests, progress). 
 ```markdown
 ## Story #0008: User Registration
 
-**Status:** `ready`
+**Status:** `in_progress`
 **Phase:** mvp-backend
 **Last updated:** 2026-04-20
 
@@ -123,25 +123,72 @@ Otherwise, read all five story files (spec, interview, tasks, tests, progress). 
 - Open: 0
 - Closed: 3
 
-### Test Plan
-- Unit tests: 3 defined, 0 run
-- Integration tests: 4 defined, 0 run
-
-### Tasks (from tasks.md)
-| # | Task | Type | Status |
-|---|------|------|--------|
-| T01 | Install IdentityServer package | infra | ✅ |
-| T02 | Configure DbContext | data | 🔄 |
-| T03 | Implement AuthService | backend | ⬜ |
-| T04 | Write integration tests | test | ⬜ |
+### Tasks
+| # | Task | Type | Status | PR |
+|---|------|------|--------|----|
+| T01 | Install IdentityServer package | infra | ✅ | #12 |
+| T02 | Configure DbContext | data | 🔄 | — |
+| T03 | Implement AuthService | backend | ⬜ | — |
+| T04 | Write integration tests | test | ⬜ | — |
 
 **Progress:** 1 / 4 done
+
+### Tests
+
+{If N/A — e.g. discovery phase or pure UI:}
+N/A — {reason from tests.md Applicability section}
+
+{If tests have not been run yet (Last run: "—"):}
+**Plan:** 3 unit tests, 4 integration tests defined — not yet run.
+
+{If tests have been run, show the full results table from tests.md:}
+**Last run:** 2026-04-20 | **Summary:** ✅ 5 / 6 passing
+
+| # | Test Name | Description | Result |
+|---|-----------|-------------|--------|
+| 1 | Should_Register_Valid_User | Happy path registration | ✅ |
+| 2 | Should_Reject_Duplicate_Email | 409 on existing email | ❌ |
 
 ### Blockers
 None
 
-### Notes (for resuming)
+### Notes
 {excerpt from progress.md Notes section}
+
+---
+
+### Actions
+
+{Show only the lines relevant to the story's current status:}
+
+**draft / review** — open questions to answer:
+- `do-it #0008` — answer open questions, move to ready
+- `update-story #0008` — edit spec or acceptance criteria
+
+**ready / tests_defined** — ready to implement:
+- `do-it #0008` — implement this story (write tests, write code, run suite)
+- `update-story #0008` — adjust spec before starting
+
+**in_progress** — implementation underway:
+- `do-it #0008` — continue implementation
+- `update-story #0008` — update spec mid-flight (you'll be asked to confirm)
+
+**tests_passing** — review and close:
+- `do-it #0008` — review and mark done
+- `update-story #0008` — final spec correction before closing
+
+**done:**
+- `create-story {phase} "{name}"` — add a follow-up story
+
+**blocked:**
+- `do-it unblock #0008` — clear the blocker and restore previous status
+- `update-story #0008` — update spec while waiting
+```
+
+For epics, append the action line to the epic summary block:
+
+```markdown
+**Next step:** `do-it epic #0012` — elaborate into a full story.
 ```
 
 ---
@@ -149,6 +196,6 @@ None
 ## Behavior Rules
 
 - Never write to any file.
-- Never suggest doing work — only show state.
-- If the user asks "what should I do next?", show options but remind them to use `do-it` to act.
+- In Mode 1 and 2 (overview): show state only — no action menu. The user is scanning, not deciding.
+- In Mode 3 (specific story): always end with the **Actions** menu. The user has drilled into a story and likely wants to do something next — showing the exact commands saves them from remembering syntax.
 - Read `progress.md` for stories where checkbox inference is ambiguous (e.g. all ☐ → could be draft or review).
