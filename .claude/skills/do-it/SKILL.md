@@ -74,6 +74,17 @@ If the user confirms, proceed. If no dependencies are listed or all are done, pr
 2. Update `## Summary` counters in `tasks.md`.
 3. When all non-test tasks are done, proceed to run tests (Step 5).
 
+### Git: Branch before implementation
+
+When transitioning `ready → tests_defined` (i.e., just before writing the task list), check whether `.git/` exists. If it does:
+
+1. Derive a branch name from the story slug: `feature/{story-slug}` (use the folder slug, e.g. `feature/0008-user-registration`).
+2. Ask: `Create branch "feature/0008-user-registration"? (press Enter to confirm, or type a different name)`
+3. On confirmation (or custom name), run `git checkout -b <branch-name>`.
+4. If the user declines, continue on the current branch silently.
+
+---
+
 ### Step 5 — Run and parse tests
 
 Run the appropriate test command (see `.claude/conventions.md`).
@@ -86,6 +97,27 @@ Parse the output:
 5. Mark test tasks `✅ done` in `tasks.md`.
 6. If all `✅` → transition to `tests_passing`.
 7. If any `❌` → stay in `in_progress`. Show the Failure Log. Attempt to fix failing tests by correcting the implementation (not the tests). After each fix, re-run the suite. If after two fix attempts tests still fail, stop and ask the user for guidance — describe exactly what's failing and why the fix isn't straightforward.
+
+### Git: Wrap-up after story completes
+
+When a story transitions to `tests_passing` (all tests green), if `.git/` exists, run the following sequence:
+
+1. **Stage all changes** — run `git add -A` and show a brief summary of what was staged (file count).
+
+2. **Commit message** — suggest a message based on the story name and what was implemented, e.g.:
+   `feat(#0008): implement user registration with email verification`
+   Ask: `Commit with this message? (press Enter to confirm, or type a different message)`
+   Then run `git commit -m "<confirmed message>"`.
+
+3. **Push** — ask: `Push to origin? (y/n)`
+   If yes, run `git push -u origin <current-branch>`.
+
+4. **PR** — ask: `Create a pull request? (y/n)`
+   If yes, run `gh pr create --title "<story name>" --body "Closes #<story-id>\n\n<one-line summary of what was implemented>"` and print the PR URL.
+
+If `.git/` does not exist, skip this section entirely.
+
+---
 
 ### Suggested Actions after Story Work
 

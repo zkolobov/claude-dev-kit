@@ -13,13 +13,19 @@ Scaffold folder structure and template files, then optionally chain into `discov
 
 ## Actions (in order)
 
-1. Create `docs/`, `docs/stories/`, and `.claude/` directories (skip any that already exist).
+1. Check for git repo. If `.git/` does not exist:
+   - Derive a suggested repo name from the current directory name: lowercase, spaces → hyphens, strip special characters (e.g. `My Cool App` → `my-cool-app`).
+   - Ask: `No git repo found. Initialize one as "<suggested-name>"? (press Enter to confirm, or type a different name, or "n" to skip)`
+   - If the user confirms or provides a name → run `git init`. Record the confirmed name for the summary.
+   - If the user types "n" → skip silently.
 
-2. Create `.claude/conventions.md`:
+2. Create `docs/`, `docs/stories/`, and `.claude/` directories (skip any that already exist).
+
+3. Create `.claude/conventions.md`:
 
 Read `references/conventions-template.md` (bundled with this skill) and write its contents verbatim to `.claude/conventions.md` in the project.
 
-3. Create `docs/stories.md`:
+4. Create `docs/stories.md`:
 
 ```markdown
 # Stories
@@ -30,7 +36,7 @@ Read `references/conventions-template.md` (bundled with this skill) and write it
 |----|-------|-------------|------|-----------|---------------|-------------|---------------|------|
 ```
 
-4. Create `docs/tech.spec.md`:
+5. Create `docs/tech.spec.md`:
 
 ```markdown
 # Tech Spec: {Project Name}
@@ -61,7 +67,7 @@ Read `references/conventions-template.md` (bundled with this skill) and write it
 - **Production:** 
 ```
 
-5. Create `docs/discovery.md`:
+6. Create `docs/discovery.md`:
 
 If a description was provided, use it as the Source Prompt. Otherwise leave the placeholder.
 
@@ -120,13 +126,14 @@ If a description was provided, use it as the Source Prompt. Otherwise leave the 
 ## Open Questions
 ```
 
-6. Print summary and chain into discovery:
+7. Print summary and chain into discovery:
 
 **If description was provided:**
 ```
 ✅ Project scaffolded.
 
 Created:
+  [git repo: <confirmed-name>]   ← omit this line if git was skipped
   docs/
   docs/stories/
   docs/stories.md
@@ -145,6 +152,7 @@ Then immediately invoke the `discovery` skill (no further input needed — it wi
 ✅ Project scaffolded.
 
 Created:
+  [git repo: <confirmed-name>]   ← omit this line if git was skipped
   docs/
   docs/stories/
   docs/stories.md
