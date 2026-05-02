@@ -185,18 +185,14 @@ After user confirmation, create the agreed items in this order:
    - `## Final Decision` → confirmed stack, rejected alternatives, open questions that remain
    - `## Open Questions` → anything still unresolved after this run
 
-4. After all artifacts are created, append suggested actions. Include one `/do-it #ID` action per created full story (not epics), plus `/do-it` to see the full backlog menu. Order: discovery-phase stories first, then by phase. Example for 3 created stories:
+4. After all artifacts are created, call the `AskUserQuestion` tool to offer next actions. Include one option per created full story (not epics), up to 3 options max, plus `/do-it` to see the full backlog menu. Order: discovery-phase stories first, then by phase.
 
-```
-<suggested-actions>
-<action>/do-it #0001</action>
-<action>/do-it #0002</action>
-<action>/do-it #0003</action>
-<action>/do-it</action>
-</suggested-actions>
-```
+Ask "Which story would you like to start?" with options like:
+- `/do-it #0001` — label "Story #0001", description "{story name}"
+- `/do-it #0002` — label "Story #0002", description "{story name}"
+- `/do-it` — label "Full menu", description "See all available work"
 
-Use the actual IDs assigned during this run. If only epics were created (no full stories), just suggest `/do-it`.
+Use the actual IDs and names from this run. If only epics were created (no full stories), ask with only `/do-it` (label "Full menu", description "See all available work").
 
 ---
 

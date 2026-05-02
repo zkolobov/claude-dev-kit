@@ -38,8 +38,8 @@ Read all five files:
 | `ready` | Check dependencies (see Dependency Check below) → Read `interview.md` + `tech.spec.md` → decompose tasks per `conventions.md` (specific library/approach per task; new decisions → `tech.spec.md ## Architectural Decisions`) → confirm task list with user → write test plan in `tests.md` → `tests_defined`. |
 | `tests_defined` | Transition to `in_progress` (update `spec.md`, `progress.md`, `stories.md`) → implement tasks in order, skip `test` type → after last impl task run tests (Step 5). |
 | `in_progress` | Read `tasks.md`. If there are pending implementation tasks (`infra`/`data`/`backend`/`api`/`design`/`frontend`), continue from the first one. If only `test` tasks remain → run tests (Step 5). |
-| `tests_passing` | Summarize completed work. Ask user to review. Transition to `done` when approved. After transitioning, append suggested actions (see "Suggested Actions after Story Work" below). |
-| `done` | Report story complete, show summary. Then append suggested actions (see "Suggested Actions after Story Work" below). |
+| `tests_passing` | Summarize completed work. Ask user to review. When approved → transition to `done` → then run git wrap-up (commit + PR, see "Git: Wrap-up after story completes" below) → then offer suggested actions. |
+| `done` | Report story complete, show summary. Then offer suggested actions (see "Suggested Actions after Story Work" below). |
 
 ### UI Check (during `review`)
 
@@ -74,9 +74,9 @@ If the user confirms, proceed. If no dependencies are listed or all are done, pr
 2. Update `## Summary` counters in `tasks.md`.
 3. When all non-test tasks are done, proceed to run tests (Step 5).
 
-### Git: Branch before implementation
+### Git: Branch at story start
 
-When transitioning `ready → tests_defined` (i.e., just before writing the task list), check whether `.git/` exists. If it does:
+At the very beginning of Step 3 (before any status-based action), if `.git/` exists and the current branch is not already a feature branch for this story (check `git branch --show-current`):
 
 1. Derive a branch name from the story slug: `feature/{story-slug}` (use the folder slug, e.g. `feature/0008-user-registration`).
 2. Ask: `Create branch "feature/0008-user-registration"? (press Enter to confirm, or type a different name)`
@@ -100,7 +100,7 @@ Parse the output:
 
 ### Git: Wrap-up after story completes
 
-When a story transitions to `tests_passing` (all tests green), if `.git/` exists, run the following sequence:
+When a story transitions to `done` (user approved, all files updated), if `.git/` exists, run the following sequence:
 
 1. **Stage all changes** — run `git add -A` and show a brief summary of what was staged (file count).
 
@@ -121,16 +121,12 @@ If `.git/` does not exist, skip this section entirely.
 
 ### Suggested Actions after Story Work
 
-After completing a story (`done`) or reaching `tests_passing`, read `docs/stories.md` and find the next most actionable story (prefer `in_progress` → `tests_defined` → `ready` → `review` → `draft`). Then append:
+After completing a story (`done`) or reaching `tests_passing`, read `docs/stories.md` and find the next most actionable story (prefer `in_progress` → `tests_defined` → `ready` → `review` → `draft`). Then call the `AskUserQuestion` tool:
 
-```
-<suggested-actions>
-<action>/discovery</action>
-<action>/do-it #XXXX</action>
-</suggested-actions>
-```
+- If another story exists: ask "What would you like to do next?" with options `/do-it #XXXX` (label "Next story", description "Continue with the next most actionable story") and `/discovery` (label "Discovery", description "Run discovery to find new work").
+- If no other stories exist: ask with only `/discovery` (label "Discovery", description "Run discovery to find the next wave of work").
 
-Replace `#XXXX` with that story's ID. If no other stories exist, only suggest `/discovery`.
+Replace `#XXXX` with that story's actual ID.
 
 ---
 
@@ -197,16 +193,12 @@ Rules:
 - If everything is empty (no in_progress, no ready, no epics), say: "The backlog is empty. Run `discovery` to find the next wave of work." Then stop.
 - Epics section lists only `epic` rows (rows with `—` in all checkbox columns).
 
-After displaying the menu, always append suggested actions. Include `/discovery` always, and one `/do-it #ID` action for the most actionable story (prefer `in_progress` → `tests_defined` → `ready` → `review` → `draft` order). Format:
+After displaying the menu, call the `AskUserQuestion` tool. Include `/discovery` always, and one `/do-it #ID` for the most actionable story (prefer `in_progress` → `tests_defined` → `ready` → `review` → `draft` order):
 
-```
-<suggested-actions>
-<action>/discovery</action>
-<action>/do-it #XXXX</action>
-</suggested-actions>
-```
+- If a story exists: ask "What would you like to work on?" with options `/do-it #XXXX` (label "Top story", description "Jump to the most actionable story") and `/discovery` (label "Discovery", description "Find new work to add to the backlog").
+- If the backlog is empty: ask with only `/discovery` (label "Discovery", description "Find the next wave of work").
 
-Replace `#XXXX` with the actual story ID. If the backlog is empty, only suggest `/discovery`.
+Replace `#XXXX` with the actual story ID.
 
 When the user picks a story → Mode 1.
 When the user picks "epic #ID" → elaborate the epic (see below).

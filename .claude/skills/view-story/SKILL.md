@@ -75,16 +75,12 @@ Phase: {phase}   Status: {status}   Updated: {date}
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
 
-After rendering the summary, always append suggested actions:
+After rendering the summary, call the `AskUserQuestion` tool to offer next actions:
 
-```
-<suggested-actions>
-<action>/do-it #{ID}</action>
-<action>/update-story #{ID}</action>
-</suggested-actions>
-```
+- If the story is **not** `done`: ask "What would you like to do next?" with options `/do-it #ID` (label "Work on story", description "Continue or start implementation") and `/update-story #ID` (label "Edit story", description "Update spec or description").
+- If the story is `done`: ask with only `/update-story #ID` (label "Edit story", description "Update spec or description").
 
-Use the actual story ID. If the story is `done`, omit `/do-it` and only suggest `/update-story #{ID}`.
+Use the actual story ID in the option labels/descriptions.
 
 **Status icons** (from `.claude/conventions.md`):
 - 📝 draft  |  💬 review  |  🟡 ready / tests_defined  |  🔄 in_progress  |  🟢 tests_passing  |  ☑️ done  |  ⛔ blocked
